@@ -1,37 +1,117 @@
+// Navbar.jsx
+
 import React from 'react';
-import { Link } from 'react-router-dom'; // हे इम्पोर्ट करणे महत्त्वाचे आहे
+import { Link } from 'react-router-dom';
+
+// Logo Image
+import shopLogo from '../assets/Shop Logo.jpg';
 
 const Navbar = () => {
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-      <div className="container">
-        {/* Link टॅग वापरल्यामुळे पेज रिफ्रेश न होता लोड होईल */}
-        <Link className="navbar-brand fw-bold" to="/">PIXER</Link>
-        
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+
+      {/* Full Screen Container */}
+      <div className="container-fluid px-5">
+
+        {/* Logo + Title */}
+        <Link
+          className="navbar-brand d-flex align-items-center gap-3"
+          to="/"
+        >
+
+          <img
+            src={shopLogo}
+            alt="Shop Logo"
+            height="60"
+            width="60"
+            className="rounded-circle shadow-sm"
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+
+          {/* Website Name */}
+          <span className="text-white fw-bold fs-3">
+            Pixer Marketplace
+          </span>
+
+        </Link>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+
           <span className="navbar-toggler-icon"></span>
+
         </button>
 
+        {/* Navbar Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto align-items-center">
+
+          <ul className="navbar-nav ms-auto align-items-center gap-lg-3">
+
+            {/* Home */}
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+
+              <Link
+                className="nav-link text-white fw-medium px-3"
+                to="/"
+              >
+                Home
+              </Link>
+
             </li>
+
+            {/* Products */}
             <li className="nav-item">
-              <a className="nav-link" href="#products">Products</a>
+
+              <a
+                className="nav-link text-white fw-medium px-3"
+                href="#products"
+              >
+                Products
+              </a>
+
             </li>
+
+            {/* Cart */}
             <li className="nav-item">
-              {/* Login बटणाला /login पाथशी जोडले */}
-              <Link to="/login" className="btn btn-primary ms-lg-3">Login</Link>
+
+              <Link
+                className="nav-link text-white fw-medium px-3"
+                to="/cart"
+              >
+                Cart
+              </Link>
+
             </li>
+
+            {/* Login Button */}
             <li className="nav-item">
-              {/* Register साठी पण लिंक जोडूया */}
-              <Link to="/register" className="nav-link ms-lg-2">Register</Link>
+
+              <Link
+                to="/login"
+                className="btn btn-outline-light px-4 rounded-pill shadow-sm ms-lg-3"
+              >
+                Login
+              </Link>
+
             </li>
+
           </ul>
+
         </div>
+
       </div>
+
     </nav>
+
   );
 };
 
