@@ -1,6 +1,5 @@
-// App.jsx
-
 import React from 'react';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -12,12 +11,12 @@ import watchImg from './assets/watch_.jpg';
 
 const App = () => {
 
-  // Buy Now Button Function
+  // Buy Button Function
   const handleBuyNow = (productName) => {
     alert(`${productName} added successfully!`);
   };
 
-  // Products Data
+  // Products
   const products = [
 
     {
@@ -56,54 +55,100 @@ const App = () => {
       {/* Main Content */}
       <main>
 
-        {/* Full Screen Container */}
-        <div className="container-fluid px-5">
+        <div className="container-fluid px-0">
 
-          {/* Hero Section */}
-          <section className="row align-items-center min-vh-100">
+          {/* HERO SECTION */}
 
-            {/* Left Side */}
-            <div className="col-lg-6">
+          <section
+            className="row align-items-center"
+            style={{
+              minHeight: '90vh',
+              paddingTop: '50px',
+              paddingBottom: '50px',
+            }}
+          >
 
-              <h1
-                className="fw-bold text-dark mb-4"
+            {/* LEFT CONTENT */}
+
+            <div className="col-lg-6 px-5">
+
+              <span
+                className="badge bg-dark px-4 py-2 mb-4"
                 style={{
-                  fontSize: '3rem',
+                  fontSize: '0.9rem',
+                  borderRadius: '30px',
                 }}
               >
-                Welcome to Pixer Marketplace
+                Modern Shopping Experience
+              </span>
+
+              <h1
+                className="fw-bold mb-4"
+                style={{
+                  fontSize: '3rem',
+                  lineHeight: '1.2',
+                  color: '#111',
+                }}
+              >
+                Discover Premium Products at
+                <span className="text-primary">
+                  {' '}Pixer Marketplace
+                </span>
               </h1>
 
               <p
-                className="text-secondary mb-4"
+                className="mb-4"
                 style={{
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
+                  color: '#6c757d',
+                  maxWidth: '550px',
                 }}
               >
-                Discover amazing products with modern UI and smooth shopping
-                experience.
+                Explore top quality electronics, smart gadgets,
+                luxury accessories and modern appliances with
+                stylish shopping experience.
               </p>
 
-              <a
-                href="#products"
-                className="btn btn-dark btn-lg px-5 py-3 rounded-3"
-              >
-                Shop Now
-              </a>
+              {/* BUTTONS */}
+
+              <div className="d-flex gap-3 flex-wrap">
+
+                <a
+                  href="#products"
+                  className="btn btn-dark btn-lg px-5 py-3"
+                  style={{
+                    borderRadius: '12px',
+                  }}
+                >
+                  Shop Now
+                </a>
+
+                <button
+                  className="btn btn-outline-dark btn-lg px-5 py-3"
+                  style={{
+                    borderRadius: '12px',
+                  }}
+                >
+                  Explore More
+                </button>
+
+              </div>
 
             </div>
 
-            {/* Right Side Hero Logo */}
-            <div className="col-lg-6 text-center">
+            {/* RIGHT IMAGE */}
+
+            <div className="col-lg-6 text-center mt-5 mt-lg-0">
 
               <img
                 src={heroImg}
                 alt="Hero Logo"
                 className="img-fluid"
                 style={{
-                  maxHeight: '400px',
-                  width: '400px',
+                  width: '650px',
+                  maxWidth: '100%',
                   objectFit: 'contain',
+                  margin: '0 auto',
                 }}
               />
 
@@ -111,59 +156,80 @@ const App = () => {
 
           </section>
 
-          {/* Features Section */}
-          <section className="py-5">
+          {/* FEATURES SECTION */}
 
-            <div className="text-center mb-5">
+          <section className="py-5 bg-white">
 
-              <h2 className="fw-bold">
-                Why Choose Pixer
-              </h2>
+            <div className="container">
 
-            </div>
+              <div className="text-center mb-5">
 
-            <div className="row g-4">
+                <h2 className="fw-bold">
+                  Why Choose Pixer
+                </h2>
 
-              {/* Feature 1 */}
-              <div className="col-md-4">
-
-                <div className="card border-0 shadow-sm text-center p-4 h-100">
-
-                  <h4>🚀 Fast Delivery</h4>
-
-                  <p className="text-muted">
-                    Quick delivery at your doorstep
-                  </p>
-
-                </div>
+                <p className="text-muted">
+                  Experience premium shopping with trusted services.
+                </p>
 
               </div>
 
-              {/* Feature 2 */}
-              <div className="col-md-4">
+              <div className="row g-4">
 
-                <div className="card border-0 shadow-sm text-center p-4 h-100">
+                {/* Feature 1 */}
 
-                  <h4>🔒 Secure Payment</h4>
+                <div className="col-md-4">
 
-                  <p className="text-muted">
-                    100% safe transactions
-                  </p>
+                  <div className="card border-0 shadow-sm text-center p-4 h-100">
+
+                    <h4 className="mb-3">
+                      🚀 Fast Delivery
+                    </h4>
+
+                    <p className="text-muted">
+                      Quick delivery at your doorstep
+                      with secure packaging.
+                    </p>
+
+                  </div>
 
                 </div>
 
-              </div>
+                {/* Feature 2 */}
 
-              {/* Feature 3 */}
-              <div className="col-md-4">
+                <div className="col-md-4">
 
-                <div className="card border-0 shadow-sm text-center p-4 h-100">
+                  <div className="card border-0 shadow-sm text-center p-4 h-100">
 
-                  <h4>💰 Best Prices</h4>
+                    <h4 className="mb-3">
+                      🔒 Secure Payment
+                    </h4>
 
-                  <p className="text-muted">
-                    Affordable products for everyone
-                  </p>
+                    <p className="text-muted">
+                      100% safe and secure online
+                      payment methods.
+                    </p>
+
+                  </div>
+
+                </div>
+
+                {/* Feature 3 */}
+
+                <div className="col-md-4">
+
+                  <div className="card border-0 shadow-sm text-center p-4 h-100">
+
+                    <h4 className="mb-3">
+                      💰 Best Prices
+                    </h4>
+
+                    <p className="text-muted">
+                      Affordable products with premium
+                      quality and offers.
+                    </p>
+
+                  </div>
 
                 </div>
 
@@ -173,64 +239,78 @@ const App = () => {
 
           </section>
 
-          {/* Products Section */}
-          <section id="products" className="py-5">
+          {/* PRODUCTS SECTION */}
 
-            <h2 className="text-center fw-bold mb-5">
-              Featured Products
-            </h2>
+          <section
+            id="products"
+            className="py-5"
+          >
 
-            <div className="row g-4">
+            <div className="container">
 
-              {products.map((product) => (
+              <h2 className="text-center fw-bold mb-5">
+                Featured Products
+              </h2>
 
-                <div key={product.id} className="col-lg-4">
+              <div className="row g-4">
 
-                  <div className="card border-0 shadow h-100 text-center">
+                {products.map((product) => (
 
-                    {/* Product Image */}
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="card-img-top"
-                      style={{
-                        height: '180px',
-                        width: '180px',
-                        objectFit: 'contain',
-                        margin: '20px auto',
-                      }}
-                    />
+                  <div
+                    key={product.id}
+                    className="col-lg-4"
+                  >
 
-                    {/* Product Content */}
-                    <div className="card-body">
+                    <div className="card border-0 shadow h-100 text-center">
 
-                      <h4 className="fw-bold">
-                        {product.title}
-                      </h4>
+                      {/* Product Image */}
 
-                      <p className="text-muted">
-                        {product.description}
-                      </p>
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="card-img-top"
+                        style={{
+                          height: '180px',
+                          width: '180px',
+                          objectFit: 'contain',
+                          margin: '20px auto',
+                        }}
+                      />
 
-                    </div>
+                      {/* Product Content */}
 
-                    {/* Buy Button */}
-                    <div className="card-footer bg-white border-0">
+                      <div className="card-body">
 
-                      <button
-                        className="btn btn-dark w-100"
-                        onClick={() => handleBuyNow(product.title)}
-                      >
-                        Buy Now
-                      </button>
+                        <h4 className="fw-bold">
+                          {product.title}
+                        </h4>
+
+                        <p className="text-muted">
+                          {product.description}
+                        </p>
+
+                      </div>
+
+                      {/* Button */}
+
+                      <div className="card-footer bg-white border-0">
+
+                        <button
+                          className="btn btn-dark w-100"
+                          onClick={() => handleBuyNow(product.title)}
+                        >
+                          Buy Now
+                        </button>
+
+                      </div>
 
                     </div>
 
                   </div>
 
-                </div>
+                ))}
 
-              ))}
+              </div>
 
             </div>
 

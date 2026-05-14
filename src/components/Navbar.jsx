@@ -1,9 +1,6 @@
-// Navbar.jsx
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Logo Image
 import shopLogo from '../assets/Shop Logo.jpg';
 
 const Navbar = () => {
@@ -12,10 +9,9 @@ const Navbar = () => {
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
 
-      {/* Full Screen Container */}
-      <div className="container-fluid px-5">
+     <div className="container-fluid px-3">
 
-        {/* Logo + Title */}
+        {/* Logo */}
         <Link
           className="navbar-brand d-flex align-items-center gap-3"
           to="/"
@@ -32,14 +28,13 @@ const Navbar = () => {
             }}
           />
 
-          {/* Website Name */}
           <span className="text-white fw-bold fs-3">
             Pixer Marketplace
           </span>
 
         </Link>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Button */}
         <button
           className="navbar-toggler"
           type="button"
@@ -51,12 +46,11 @@ const Navbar = () => {
 
         </button>
 
-        {/* Navbar Links */}
+        {/* Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
 
           <ul className="navbar-nav ms-auto align-items-center gap-lg-3">
 
-            {/* Home */}
             <li className="nav-item">
 
               <Link
@@ -68,7 +62,6 @@ const Navbar = () => {
 
             </li>
 
-            {/* Products */}
             <li className="nav-item">
 
               <a
@@ -80,7 +73,6 @@ const Navbar = () => {
 
             </li>
 
-            {/* Cart */}
             <li className="nav-item">
 
               <Link
@@ -92,7 +84,6 @@ const Navbar = () => {
 
             </li>
 
-            {/* Login Button */}
             <li className="nav-item">
 
               <Link
