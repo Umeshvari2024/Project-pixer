@@ -1,7 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  // Handle Input Change
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+
+  };
+
+  // Validation Function
+  const validate = () => {
+
+    let newErrors = {};
+
+    // Full Name Validation
+    if (!formData.name) {
+
+      newErrors.name = "Full Name is required";
+
+    }
+
+    // Email Validation
+    if (!formData.email) {
+
+      newErrors.email = "Email is required";
+
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+
+      newErrors.email = "Invalid email address";
+
+    }
+
+    // Password Validation
+    if (!formData.password) {
+
+      newErrors.password = "Password is required";
+
+    } else if (formData.password.length < 6) {
+
+      newErrors.password =
+        "Password must be at least 6 characters";
+
+    }
+
+    // Confirm Password Validation
+    if (!formData.confirmPassword) {
+
+      newErrors.confirmPassword =
+        "Confirm Password is required";
+
+    } else if (
+      formData.confirmPassword !== formData.password
+    ) {
+
+      newErrors.confirmPassword =
+        "Passwords do not match";
+
+    }
+
+    return newErrors;
+
+  };
+
+  // Submit Form
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+
+      setErrors(validationErrors);
+
+    } else {
+
+      alert("Registration Successful!");
+
+      console.log(formData);
+
+      setErrors({});
+
+    }
+
+  };
 
   return (
 
@@ -19,7 +115,9 @@ const Register = () => {
                 Create Account
               </h3>
 
-              <form>
+              <form onSubmit={handleSubmit}>
+
+                {/* Full Name */}
 
                 <div className="mb-3">
 
@@ -29,29 +127,49 @@ const Register = () => {
 
                   <input
                     type="text"
+                    name="name"
                     className="form-control form-control-lg border-2"
                     placeholder="John Doe"
-                    required
+                    value={formData.name}
+                    onChange={handleChange}
                   />
 
+                  {errors.name && (
+                    <small className="text-danger">
+                      {errors.name}
+                    </small>
+                  )}
+
                 </div>
+
+                {/* Email */}
 
                 <div className="mb-3">
 
                   <label className="form-label text-muted">
-                    Email address
+                    Email Address
                   </label>
 
                   <input
                     type="email"
+                    name="email"
                     className="form-control form-control-lg border-2"
                     placeholder="name@example.com"
-                    required
+                    value={formData.email}
+                    onChange={handleChange}
                   />
+
+                  {errors.email && (
+                    <small className="text-danger">
+                      {errors.email}
+                    </small>
+                  )}
 
                 </div>
 
-                <div className="mb-4">
+                {/* Password */}
+
+                <div className="mb-3">
 
                   <label className="form-label text-muted">
                     Password
@@ -59,12 +177,47 @@ const Register = () => {
 
                   <input
                     type="password"
+                    name="password"
                     className="form-control form-control-lg border-2"
-                    placeholder="Create password"
-                    required
+                    placeholder="Create Password"
+                    value={formData.password}
+                    onChange={handleChange}
                   />
 
+                  {errors.password && (
+                    <small className="text-danger">
+                      {errors.password}
+                    </small>
+                  )}
+
                 </div>
+
+                {/* Confirm Password */}
+
+                <div className="mb-4">
+
+                  <label className="form-label text-muted">
+                    Confirm Password
+                  </label>
+
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    className="form-control form-control-lg border-2"
+                    placeholder="Confirm Password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+
+                  {errors.confirmPassword && (
+                    <small className="text-danger">
+                      {errors.confirmPassword}
+                    </small>
+                  )}
+
+                </div>
+
+                {/* Button */}
 
                 <button
                   type="submit"
@@ -72,6 +225,8 @@ const Register = () => {
                 >
                   Register Now
                 </button>
+
+                {/* Login Link */}
 
                 <div className="text-center">
 
@@ -103,6 +258,7 @@ const Register = () => {
     </div>
 
   );
+
 };
 
 export default Register;

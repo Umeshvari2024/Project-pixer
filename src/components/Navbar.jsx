@@ -9,9 +9,10 @@ const Navbar = () => {
 
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
 
-     <div className="container-fluid px-3">
+      <div className="container-fluid px-3">
 
-        {/* Logo */}
+        {/* LOGO */}
+
         <Link
           className="navbar-brand d-flex align-items-center gap-3"
           to="/"
@@ -28,13 +29,14 @@ const Navbar = () => {
             }}
           />
 
-          <span className="text-white fw-bold fs-3">
+          <span className="text-white fw-bold fs-4">
             Pixer Marketplace
           </span>
 
         </Link>
 
-        {/* Mobile Button */}
+        {/* MOBILE BUTTON */}
+
         <button
           className="navbar-toggler"
           type="button"
@@ -46,10 +48,16 @@ const Navbar = () => {
 
         </button>
 
-        {/* Links */}
-        <div className="collapse navbar-collapse" id="navbarNav">
+        {/* NAVBAR LINKS */}
+
+        <div
+          className="collapse navbar-collapse"
+          id="navbarNav"
+        >
 
           <ul className="navbar-nav ms-auto align-items-center gap-lg-3">
+
+            {/* HOME */}
 
             <li className="nav-item">
 
@@ -62,16 +70,20 @@ const Navbar = () => {
 
             </li>
 
+            {/* PRODUCTS */}
+
             <li className="nav-item">
 
               <a
                 className="nav-link text-white fw-medium px-3"
-                href="#products"
+                href="/#products"
               >
                 Products
               </a>
 
             </li>
+
+            {/* CART */}
 
             <li className="nav-item">
 
@@ -79,10 +91,38 @@ const Navbar = () => {
                 className="nav-link text-white fw-medium px-3"
                 to="/cart"
               >
-                Cart
+                🛒 Cart
               </Link>
 
             </li>
+
+            {/* USER DASHBOARD */}
+
+            <li className="nav-item">
+
+              <Link
+                className="nav-link text-white fw-medium px-3"
+                to="/dashboard"
+              >
+                Dashboard
+              </Link>
+
+            </li>
+
+            {/* VENDOR DASHBOARD */}
+
+            <li className="nav-item">
+
+              <Link
+                className="nav-link text-white fw-medium px-3"
+                to="/vendor-dashboard"
+              >
+                Vendor Dashboard
+              </Link>
+
+            </li>
+
+            {/* LOGIN */}
 
             <li className="nav-item">
 
@@ -104,6 +144,7 @@ const Navbar = () => {
     </nav>
 
   );
+
 };
 
 export default Navbar;

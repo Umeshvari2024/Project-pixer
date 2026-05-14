@@ -185,5 +185,108 @@ footer{
   .navbar-brand{
     font-size: 1.2rem;
   }
+/* =========================
+   DASHBOARD RESPONSIVE
+========================= */
 
+@media (max-width: 768px) {
+
+  /* Sidebar */
+
+  .bg-dark {
+    min-height: auto !important;
+  }
+
+  /* Dashboard Padding */
+
+  .container-fluid,
+  .container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Cards */
+
+  .card {
+    margin-bottom: 20px;
+    border-radius: 14px;
+  }
+
+  /* Chart Responsive */
+
+  .recharts-responsive-container {
+    height: 220px !important;
+  }
+
+  /* Buttons */
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Product Images */
+
+  .product-image,
+  .card-img-top {
+    width: 140px !important;
+    height: 140px !important;
+    object-fit: contain;
+  }
+
+  /* Text */
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.7rem !important;
+  }
+
+  h3,
+  h4,
+  h5 {
+    font-size: 1.2rem !important;
+  }
+
+  p,
+  li,
+  span {
+    font-size: 14px !important;
+  }
+
+  /* Navbar */
+
+  .navbar-brand span {
+    font-size: 18px !important;
+  }
+
+}
+
+/* EXTRA SMALL DEVICE */
+
+@media (max-width: 480px) {
+
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-text {
+    font-size: 14px !important;
+  }
+
+  .navbar-brand span {
+    display: none;
+  }
+
+  .hero-img {
+    width: 250px !important;
+  }
+
+  .card {
+    padding: 12px !important;
+  }
+
+}
 }

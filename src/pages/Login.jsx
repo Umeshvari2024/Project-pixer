@@ -1,7 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  // Handle Input Change
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+
+  };
+
+  // Validation Function
+  const validate = () => {
+
+    let newErrors = {};
+
+    // Email Validation
+    if (!formData.email) {
+
+      newErrors.email = "Email is required";
+
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+
+      newErrors.email = "Invalid email address";
+
+    }
+
+    // Password Validation
+    if (!formData.password) {
+
+      newErrors.password = "Password is required";
+
+    } else if (formData.password.length < 6) {
+
+      newErrors.password =
+        "Password must be at least 6 characters";
+
+    }
+
+    return newErrors;
+
+  };
+
+  // Submit Form
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+
+      setErrors(validationErrors);
+
+    } else {
+
+      alert("Login Successful!");
+
+      console.log(formData);
+
+      setErrors({});
+
+    }
+
+  };
 
   return (
 
@@ -19,22 +91,34 @@ const Login = () => {
                 Login to PIXER
               </h3>
 
-              <form>
+              <form onSubmit={handleSubmit}>
+
+                {/* Email */}
 
                 <div className="mb-3">
 
                   <label className="form-label text-muted">
-                    Email address
+                    Email Address
                   </label>
 
                   <input
                     type="email"
+                    name="email"
                     className="form-control form-control-lg border-2"
                     placeholder="name@example.com"
-                    required
+                    value={formData.email}
+                    onChange={handleChange}
                   />
 
+                  {errors.email && (
+                    <small className="text-danger">
+                      {errors.email}
+                    </small>
+                  )}
+
                 </div>
+
+                {/* Password */}
 
                 <div className="mb-4">
 
@@ -44,12 +128,22 @@ const Login = () => {
 
                   <input
                     type="password"
+                    name="password"
                     className="form-control form-control-lg border-2"
                     placeholder="Enter password"
-                    required
+                    value={formData.password}
+                    onChange={handleChange}
                   />
 
+                  {errors.password && (
+                    <small className="text-danger">
+                      {errors.password}
+                    </small>
+                  )}
+
                 </div>
+
+                {/* Button */}
 
                 <button
                   type="submit"
@@ -57,6 +151,8 @@ const Login = () => {
                 >
                   Sign In
                 </button>
+
+                {/* Register Link */}
 
                 <div className="text-center">
 
@@ -88,6 +184,7 @@ const Login = () => {
     </div>
 
   );
+
 };
 
 export default Login;

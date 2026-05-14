@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useContext } from "react";
+import { CartContext } from "./context/CartContext";
+
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -8,8 +12,17 @@ import heroImg from './assets/Shop Logo.jpg';
 import tvImg from './assets/tv.jpg';
 import acImg from './assets/air-condition.jpg';
 import watchImg from './assets/watch_.jpg';
+import fanImg from './assets/fan.jpg';
+import laptopImg from './assets/laptop.jpg';
+import washingImg from './assets/washing-machine.jpg';
 
 const App = () => {
+
+  // Search & Filter States
+  const [searchTerm, setSearchTerm] = useState('');
+  const [category, setCategory] = useState('All');
+  const { addToCart } = useContext(CartContext);
+  
 
   // Buy Button Function
   const handleBuyNow = (productName) => {
@@ -22,6 +35,8 @@ const App = () => {
     {
       id: 1,
       title: "Smart LED TV",
+      category: "Electronics",
+      price: 45999,
       description:
         "Ultra HD display with smart connectivity and immersive sound.",
       image: tvImg,
@@ -30,6 +45,8 @@ const App = () => {
     {
       id: 2,
       title: "Luxury Smart Watch",
+      category: "Accessories",
+      price: 8999,
       description:
         "Fitness tracking, heart rate monitor and smart notifications.",
       image: watchImg,
@@ -38,12 +55,59 @@ const App = () => {
     {
       id: 3,
       title: "Air Conditioner",
+      category: "Home Appliances",
+      price: 39999,
       description:
         "Energy efficient cooling with silent operation technology.",
       image: acImg,
     },
 
+    {
+  id: 4,
+  title: "Cooling Fan",
+  category: "Home Appliances",
+  price : 2999,
+  description:
+    "High speed cooling fan with energy saving technology.",
+  image: fanImg,
+},
+
+{
+  id: 5,
+  title: "Gaming Laptop",
+  category: "Electronics",
+  price: 89999,
+  description:
+    "Powerful laptop for gaming, coding and multitasking.",
+  image: laptopImg,
+},
+
+{
+  id: 6,
+  title: "Washing Machine",
+  category: "Home Appliances",
+  price : 25999,
+  description:
+    "Fully automatic washing machine with smart wash modes.",
+  image: washingImg,
+},
+
   ];
+
+  // Filter Products
+  const filteredProducts = products.filter((product) => {
+
+    const matchesSearch =
+      product.title.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      category === 'All' ||
+      product.category === category;
+
+    return matchesSearch && matchesCategory;
+
+  });
 
   return (
 
@@ -112,6 +176,7 @@ const App = () => {
               {/* BUTTONS */}
 
               <div className="d-flex gap-3 flex-wrap">
+                
 
                 <a
                   href="#products"
@@ -252,9 +317,65 @@ const App = () => {
                 Featured Products
               </h2>
 
+              {/* SEARCH & FILTER */}
+
+              <div className="row mb-4">
+
+                {/* Search Bar */}
+
+                <div className="col-md-6 mb-3">
+
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={(e) =>
+                      setSearchTerm(e.target.value)
+                    }
+                  />
+
+                </div>
+
+                {/* Category Filter */}
+
+                <div className="col-md-6 mb-3">
+
+                  <select
+                    className="form-select form-select-lg"
+                    value={category}
+                    onChange={(e) =>
+                      setCategory(e.target.value)
+                    }
+                  >
+
+                    <option value="All">
+                      All Categories
+                    </option>
+
+                    <option value="Electronics">
+                      Electronics
+                    </option>
+
+                    <option value="Accessories">
+                      Accessories
+                    </option>
+
+                    <option value="Home Appliances">
+                      Home Appliances
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+              {/* PRODUCTS */}
+
               <div className="row g-4">
 
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
 
                   <div
                     key={product.id}
@@ -289,23 +410,38 @@ const App = () => {
                           {product.description}
                         </p>
 
+                        <span className="badge bg-primary">
+                          {product.category}
+                        </span>
+
                       </div>
+
+                      
 
                       {/* Button */}
 
                       <div className="card-footer bg-white border-0">
 
-                        <button
-                          className="btn btn-dark w-100"
-                          onClick={() => handleBuyNow(product.title)}
-                        >
-                          Buy Now
-                        </button>
+  <div className="d-flex gap-2">
 
-                      </div>
+    <button
+      className="btn btn-primary w-50"
+      onClick={() => addToCart(product)}
+    >
+      Add To Cart
+    </button>
 
-                    </div>
+    <Link
+      to={`/product-details/${product.id}`}
+      className="btn btn-dark w-50"
+    >
+      Details
+    </Link>
 
+  </div>
+
+</div>
+ </div>
                   </div>
 
                 ))}
