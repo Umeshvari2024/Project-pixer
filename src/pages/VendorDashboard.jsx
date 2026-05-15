@@ -10,9 +10,9 @@ import {
   Tooltip,
   ResponsiveContainer,
   PieChart,
- Pie,
+  Pie,
   Cell,
- LineChart,
+  LineChart,
   Line,
   CartesianGrid,
 } from "recharts";
@@ -28,8 +28,6 @@ const VendorDashboard = () => {
     description: "",
     image: "",
   });
-
-  // ANALYTICS DATA
 
   const salesData = [
     { month: "Jan", sales: 4000 },
@@ -47,8 +45,6 @@ const VendorDashboard = () => {
 
   const COLORS = ["#9ec5fe", "#a3cfbb", "#ffe69c"];
 
-  // HANDLE INPUT
-
   const handleChange = (e) => {
 
     setForm({
@@ -58,15 +54,9 @@ const VendorDashboard = () => {
 
   };
 
-  // ADD PRODUCT
-
   const addProduct = () => {
 
-    if (
-      !form.title ||
-      !form.price ||
-      !form.category
-    ) {
+    if (!form.title || !form.price || !form.category) {
       alert("Please fill all fields");
       return;
     }
@@ -91,8 +81,6 @@ const VendorDashboard = () => {
 
   };
 
-  // LOGOUT
-
   const handleLogout = () => {
 
     alert("Logout Successful");
@@ -110,8 +98,6 @@ const VendorDashboard = () => {
 
         <div className="row">
 
-          {/* SIDEBAR */}
-
           <div
             className="col-lg-2 col-md-3 bg-dark text-white p-3"
             style={{ minHeight: "100vh" }}
@@ -124,47 +110,20 @@ const VendorDashboard = () => {
             <ul className="list-unstyled small">
 
               <li className="mb-4">
-                <a
-                  href="#dashboard"
-                  className="text-white text-decoration-none"
-                >
+                <a href="#dashboard" className="text-white text-decoration-none">
                   🏠 Dashboard
                 </a>
               </li>
 
               <li className="mb-4">
-                <a
-                  href="#profile"
-                  className="text-white text-decoration-none"
-                >
-                  👤 Profile
-                </a>
-              </li>
-
-              <li className="mb-4">
-                <a
-                  href="#products"
-                  className="text-white text-decoration-none"
-                >
+                <a href="#products" className="text-white text-decoration-none">
                   📦 Products
                 </a>
               </li>
 
               <li className="mb-4">
-                <a
-                  href="#upload"
-                  className="text-white text-decoration-none"
-                >
+                <a href="#upload" className="text-white text-decoration-none">
                   ➕ Upload Product
-                </a>
-              </li>
-
-              <li className="mb-4">
-                <a
-                  href="#settings"
-                  className="text-white text-decoration-none"
-                >
-                  ⚙ Settings
                 </a>
               </li>
 
@@ -172,27 +131,16 @@ const VendorDashboard = () => {
 
           </div>
 
-          {/* MAIN CONTENT */}
+          <div className="col-lg-10 col-md-9 p-4">
 
-          <div
-            id="dashboard"
-            className="col-lg-10 col-md-9 p-3 p-md-4"
-          >
-
-            {/* TOP */}
-
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-4">
 
               <div>
-
-                <h4 className="fw-bold">
-                  Vendor Dashboard
-                </h4>
+                <h4 className="fw-bold">Vendor Dashboard</h4>
 
                 <p className="text-muted">
                   Manage your products and analytics
                 </p>
-
               </div>
 
               <button
@@ -208,49 +156,39 @@ const VendorDashboard = () => {
 
             <div className="row g-4 mb-4">
 
-              <div className="col-sm-6 col-lg-4">
+              <div className="col-md-4">
 
-                <div className="card shadow-sm border-0 p-4 text-center bg-white">
+                <div className="card p-4 shadow border-0 text-center">
 
-                  <h6 className="text-muted">
-                    Total Products
-                  </h6>
+                  <h6>Total Products</h6>
 
-                  <h4 className="text-primary">
+                  <h3 className="text-primary">
                     {products.length}
-                  </h4>
+                  </h3>
 
                 </div>
 
               </div>
 
-              <div className="col-sm-6 col-lg-4">
+              <div className="col-md-4">
 
-                <div className="card shadow-sm border-0 p-4 text-center bg-white">
+                <div className="card p-4 shadow border-0 text-center">
 
-                  <h6 className="text-muted">
-                    Total Orders
-                  </h6>
+                  <h6>Total Orders</h6>
 
-                  <h4 className="text-success">
-                    120
-                  </h4>
+                  <h3 className="text-success">120</h3>
 
                 </div>
 
               </div>
 
-              <div className="col-sm-6 col-lg-4">
+              <div className="col-md-4">
 
-                <div className="card shadow-sm border-0 p-4 text-center bg-white">
+                <div className="card p-4 shadow border-0 text-center">
 
-                  <h6 className="text-muted">
-                    Total Earnings
-                  </h6>
+                  <h6>Total Earnings</h6>
 
-                  <h4 className="text-warning">
-                    ₹50,000
-                  </h4>
+                  <h3 className="text-warning">₹50,000</h3>
 
                 </div>
 
@@ -258,25 +196,23 @@ const VendorDashboard = () => {
 
             </div>
 
-            {/* ANALYTICS */}
+            {/* CHARTS */}
 
-            <div className="row g-3 mb-4">
+            <div className="row g-4 mb-4">
 
-              {/* BAR CHART */}
+              <div className="col-lg-7">
 
-              <div className="col-12 col-lg-7">
+                <div className="card p-3 border-0 shadow-sm">
 
-                <div className="card border-0 shadow-sm p-3">
-
-                  <h6 className="fw-bold mb-3 text-secondary">
+                  <h6 className="fw-bold mb-3">
                     Monthly Sales
                   </h6>
 
-                  <ResponsiveContainer width="100%" height={220}>
+                  <ResponsiveContainer width="100%" height={250}>
 
                     <BarChart data={salesData}>
 
-                      <CartesianGrid strokeDasharray="2 2" />
+                      <CartesianGrid strokeDasharray="3 3" />
 
                       <XAxis dataKey="month" />
 
@@ -287,7 +223,6 @@ const VendorDashboard = () => {
                       <Bar
                         dataKey="sales"
                         fill="#6ea8fe"
-                        radius={[6, 6, 0, 0]}
                       />
 
                     </BarChart>
@@ -298,33 +233,29 @@ const VendorDashboard = () => {
 
               </div>
 
-              {/* PIE CHART */}
+              <div className="col-lg-5">
 
-              <div className="col-12 col-lg-5">
+                <div className="card p-3 border-0 shadow-sm">
 
-                <div className="card border-0 shadow-sm p-3 text-center">
-
-                  <h6 className="fw-bold mb-3 text-secondary">
-                    Product Categories
+                  <h6 className="fw-bold mb-3">
+                    Categories
                   </h6>
 
-                  <ResponsiveContainer width="100%" height={220}>
+                  <ResponsiveContainer width="100%" height={250}>
 
                     <PieChart>
 
                       <Pie
                         data={categoryData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={70}
                         dataKey="value"
+                        outerRadius={80}
                         label
                       >
 
                         {categoryData.map((entry, index) => (
 
                           <Cell
-                            key={`cell-${index}`}
+                            key={index}
                             fill={COLORS[index]}
                           />
 
@@ -344,19 +275,19 @@ const VendorDashboard = () => {
 
             </div>
 
-            {/* LINE CHART */}
+            {/* REVENUE */}
 
-            <div className="card border-0 shadow-sm p-3 mb-4">
+            <div className="card p-3 shadow-sm border-0 mb-4">
 
-              <h6 className="fw-bold mb-3 text-secondary">
+              <h6 className="fw-bold mb-3">
                 Revenue Overview
               </h6>
 
-              <ResponsiveContainer width="100%" height={220}>
+              <ResponsiveContainer width="100%" height={250}>
 
                 <LineChart data={salesData}>
 
-                  <CartesianGrid strokeDasharray="2 2" />
+                  <CartesianGrid strokeDasharray="3 3" />
 
                   <XAxis dataKey="month" />
 
@@ -367,7 +298,7 @@ const VendorDashboard = () => {
                   <Line
                     type="monotone"
                     dataKey="sales"
-                    stroke="#74c69d"
+                    stroke="#198754"
                     strokeWidth={3}
                   />
 
@@ -377,52 +308,11 @@ const VendorDashboard = () => {
 
             </div>
 
-            {/* PROFILE */}
-
-            <div
-              id="profile"
-              className="card shadow-sm border-0 p-4 mb-4"
-            >
-
-              <h5 className="fw-bold mb-3">
-                Vendor Profile
-              </h5>
-
-              <div className="row">
-
-                <div className="col-12 col-md-6">
-
-                  <p>
-                    <strong>Name:</strong> Demo Vendor
-                  </p>
-
-                  <p>
-                    <strong>Email:</strong> vendor@gmail.com
-                  </p>
-
-                </div>
-
-                <div className="col-12 col-md-6">
-
-                  <p>
-                    <strong>Phone:</strong> 9876543210
-                  </p>
-
-                  <p>
-                    <strong>Location:</strong> Pune, India
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* PRODUCT UPLOAD */}
+            {/* PRODUCT FORM */}
 
             <div
               id="upload"
-              className="card shadow-sm border-0 p-4 mb-5"
+              className="card p-4 shadow-sm border-0 mb-5"
             >
 
               <h5 className="fw-bold mb-4">
@@ -431,7 +321,7 @@ const VendorDashboard = () => {
 
               <div className="row">
 
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-md-6 mb-3">
 
                   <input
                     type="text"
@@ -444,7 +334,7 @@ const VendorDashboard = () => {
 
                 </div>
 
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-md-6 mb-3">
 
                   <input
                     type="number"
@@ -457,7 +347,7 @@ const VendorDashboard = () => {
 
                 </div>
 
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-md-6 mb-3">
 
                   <input
                     type="text"
@@ -470,7 +360,7 @@ const VendorDashboard = () => {
 
                 </div>
 
-                <div className="col-12 col-md-6 mb-3">
+                <div className="col-md-6 mb-3">
 
                   <input
                     type="text"
@@ -499,7 +389,7 @@ const VendorDashboard = () => {
                 <div className="col-12">
 
                   <button
-                    className="btn btn-dark w-100 py-2"
+                    className="btn btn-dark w-100"
                     onClick={addProduct}
                   >
                     Upload Product
@@ -524,8 +414,8 @@ const VendorDashboard = () => {
                 {products.map((p) => (
 
                   <div
-                    className="col-sm-6 col-lg-4"
                     key={p.id}
+                    className="col-md-4"
                   >
 
                     <div className="card shadow-sm border-0 h-100">
@@ -557,9 +447,9 @@ const VendorDashboard = () => {
                           {p.category}
                         </span>
 
-                        <h6 className="mt-3 text-success">
+                        <h5 className="mt-3 text-success">
                           ₹ {p.price}
-                        </h6>
+                        </h5>
 
                       </div>
 
@@ -570,23 +460,6 @@ const VendorDashboard = () => {
                 ))}
 
               </div>
-
-            </div>
-
-            {/* SETTINGS */}
-
-            <div
-              id="settings"
-              className="card shadow-sm border-0 p-4 mt-5"
-            >
-
-              <h5 className="fw-bold mb-3">
-                Settings
-              </h5>
-
-              <p className="text-muted">
-                Vendor settings options will appear here.
-              </p>
 
             </div>
 

@@ -65,11 +65,20 @@ const Login = () => {
 
     } else {
 
+      // JWT TOKEN SAVE
+      localStorage.setItem(
+        "token",
+        "pixer-user-token"
+      );
+
       alert("Login Successful!");
 
       console.log(formData);
 
       setErrors({});
+
+      // Redirect To Protected Page
+      window.location.href = "/vendor-dashboard";
 
     }
 
@@ -111,9 +120,11 @@ const Login = () => {
                   />
 
                   {errors.email && (
+
                     <small className="text-danger">
                       {errors.email}
                     </small>
+
                   )}
 
                 </div>
@@ -136,9 +147,11 @@ const Login = () => {
                   />
 
                   {errors.password && (
+
                     <small className="text-danger">
                       {errors.password}
                     </small>
+
                   )}
 
                 </div>

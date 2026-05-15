@@ -1,6 +1,10 @@
 import React from 'react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import AllProducts from './pages/AllProducts';
+import Payment from "./pages/Payment";
+
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -39,12 +43,26 @@ createRoot(document.getElementById('root')).render(
           {/* Product Details */}
           <Route path="/product-details/:id" element={<ProductDetails />} />
 
+          <Route path="/payment" element={<Payment />} />
+
           {/* Dashboard */}
           <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/cart" element={<Cart />} />
 
-          <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+          <Route
+  path="/vendor-dashboard"
+  element={
+    <ProtectedRoute>
+      <VendorDashboard />
+    </ProtectedRoute>
+  }
+/>
+
+          <Route
+  path="/all-products"
+  element={<AllProducts />}
+/>
 
         </Routes>
       </BrowserRouter>

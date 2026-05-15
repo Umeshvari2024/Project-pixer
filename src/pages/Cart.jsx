@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const Cart = () => {
-
   const { cart, removeFromCart } = useContext(CartContext);
 
-  // Total Price
+  // TOTAL PRICE
   const totalPrice = cart.reduce(
-    (total, item) => total + (item.price || 0),
+    (total, item) => total + Math.round((item.price || 0) * 85),
     0
   );
 
@@ -34,7 +34,6 @@ const Cart = () => {
           <div className="row">
 
             {/* CART ITEMS */}
-
             <div className="col-lg-8">
 
               {cart.map((item) => (
@@ -47,9 +46,7 @@ const Cart = () => {
                   <div className="row g-0 align-items-center">
 
                     {/* IMAGE */}
-
                     <div className="col-md-3 text-center p-3">
-
                       <img
                         src={item.image}
                         alt={item.title}
@@ -59,21 +56,18 @@ const Cart = () => {
                           objectFit: "contain",
                         }}
                       />
-
                     </div>
 
                     {/* CONTENT */}
-
                     <div className="col-md-6">
-
                       <div className="card-body">
 
                         <h5 className="fw-bold">
                           {item.title}
                         </h5>
 
-                        <p className="text-muted">
-                          {item.description}
+                        <p className="text-muted small">
+                          {item.description?.substring(0, 80)}...
                         </p>
 
                         <span className="badge bg-primary">
@@ -81,15 +75,13 @@ const Cart = () => {
                         </span>
 
                       </div>
-
                     </div>
 
-                    {/* PRICE + BUTTON */}
-
+                    {/* PRICE + REMOVE */}
                     <div className="col-md-3 text-center p-3">
 
                       <h5 className="text-success mb-3">
-                        ₹ {item.price || 999}
+                        ₹ {Math.round((item.price || 0) * 85)}
                       </h5>
 
                       <button
@@ -109,11 +101,11 @@ const Cart = () => {
 
             </div>
 
-            {/* SUMMARY */}
-
+            {/* SUMMARY + CHECKOUT */}
             <div className="col-lg-4">
 
-              <div className="card shadow border-0 p-4">
+              {/* ORDER SUMMARY */}
+              <div className="card shadow border-0 p-4 mb-4">
 
                 <h4 className="mb-4">
                   Order Summary
@@ -126,12 +118,67 @@ const Cart = () => {
 
                 <div className="d-flex justify-content-between mb-4">
                   <strong>Total Price</strong>
-                  <strong>₹ {totalPrice || cart.length * 999}</strong>
+                  <strong>₹ {totalPrice}</strong>
                 </div>
 
-                <button className="btn btn-dark w-100 py-2">
-                  Proceed to Checkout
-                </button>
+                <Link
+                  to="/payment"
+                  className="btn btn-dark w-100"
+                >
+                  Proceed to Payment
+                </Link>
+
+              </div>
+
+              {/* CHECKOUT FORM */}
+              <div className="card shadow border-0 p-4">
+
+                <h4 className="mb-4">
+                  Checkout Details
+                </h4>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    alert("Order Placed Successfully!");
+                  }}
+                >
+
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter Full Name"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Enter Email"
+                      required
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <textarea
+                      className="form-control"
+                      rows="3"
+                      placeholder="Enter Address"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn btn-success w-100"
+                  >
+                    Place Order
+                  </button>
+
+                </form>
 
               </div>
 

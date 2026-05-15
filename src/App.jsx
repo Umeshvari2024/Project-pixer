@@ -1,127 +1,145 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useContext } from "react";
-import { CartContext } from "./context/CartContext";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo
+} from 'react';
 
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { CartContext } from "./context/CartContext";
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// Images
 import heroImg from './assets/Shop Logo.jpg';
-import tvImg from './assets/tv.jpg';
-import acImg from './assets/air-condition.jpg';
-import watchImg from './assets/watch_.jpg';
-import fanImg from './assets/fan.jpg';
-import laptopImg from './assets/laptop.jpg';
-import washingImg from './assets/washing-machine.jpg';
 
 const App = () => {
 
-  // Search & Filter States
+  const location = useLocation();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All');
-  const { addToCart } = useContext(CartContext);
-  
 
-  // Buy Button Function
-  const handleBuyNow = (productName) => {
-    alert(`${productName} added successfully!`);
+  const [products, setProducts] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+
+    if (location.hash === '#products') {
+
+      const section = document.getElementById('products');
+
+      if (section) {
+
+        section.scrollIntoView({
+          behavior: 'smooth',
+        });
+
+      }
+
+    }
+
+  }, [location]);
+
+  const fetchProducts = async () => {
+
+    try {
+
+      setLoading(true);
+
+      const response = await axios.get(
+        "https://fakestoreapi.com/products"
+      );
+
+      setProducts(response.data);
+
+      toast.success("Products Loaded Successfully");
+
+    } catch (error) {
+
+      console.log("API Error:", error);
+
+      toast.error("Failed To Load Products");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
   };
 
-  // Products
-  const products = [
+  const addProduct = async () => {
 
-    {
-      id: 1,
-      title: "Smart LED TV",
-      category: "Electronics",
-      price: 45999,
-      description:
-        "Ultra HD display with smart connectivity and immersive sound.",
-      image: tvImg,
-    },
+    const newProduct = {
+      title: "Demo Product",
+      price: 999,
+      description: "New Product Added",
+      image: "https://i.pravatar.cc",
+      category: "electronics"
+    };
 
-    {
-      id: 2,
-      title: "Luxury Smart Watch",
-      category: "Accessories",
-      price: 8999,
-      description:
-        "Fitness tracking, heart rate monitor and smart notifications.",
-      image: watchImg,
-    },
+    try {
 
-    {
-      id: 3,
-      title: "Air Conditioner",
-      category: "Home Appliances",
-      price: 39999,
-      description:
-        "Energy efficient cooling with silent operation technology.",
-      image: acImg,
-    },
+      const response = await axios.post(
+        "https://fakestoreapi.com/products",
+        newProduct
+      );
 
-    {
-  id: 4,
-  title: "Cooling Fan",
-  category: "Home Appliances",
-  price : 2999,
-  description:
-    "High speed cooling fan with energy saving technology.",
-  image: fanImg,
-},
+      console.log(response.data);
 
-{
-  id: 5,
-  title: "Gaming Laptop",
-  category: "Electronics",
-  price: 89999,
-  description:
-    "Powerful laptop for gaming, coding and multitasking.",
-  image: laptopImg,
-},
+      toast.success("Product Added Successfully!");
 
-{
-  id: 6,
-  title: "Washing Machine",
-  category: "Home Appliances",
-  price : 25999,
-  description:
-    "Fully automatic washing machine with smart wash modes.",
-  image: washingImg,
-},
+    } catch (error) {
 
-  ];
+      console.log(error);
 
-  // Filter Products
-  const filteredProducts = products.filter((product) => {
+      toast.error("Failed To Add Product");
 
-    const matchesSearch =
-      product.title.toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    }
 
-    const matchesCategory =
-      category === 'All' ||
-      product.category === category;
+  };
 
-    return matchesSearch && matchesCategory;
+  const filteredProducts = useMemo(() => {
 
-  });
+    return products.filter((product) => {
+
+      const matchesSearch =
+        product.title
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+
+      const matchesCategory =
+        category === 'All' ||
+        product.category === category;
+
+      return matchesSearch && matchesCategory;
+
+    });
+
+  }, [products, searchTerm, category]);
 
   return (
 
     <div className="bg-light">
 
-      {/* Navbar */}
       <Navbar />
 
-      {/* Main Content */}
       <main>
 
         <div className="container-fluid px-0">
-
-          {/* HERO SECTION */}
 
           <section
             className="row align-items-center"
@@ -131,8 +149,6 @@ const App = () => {
               paddingBottom: '50px',
             }}
           >
-
-            {/* LEFT CONTENT */}
 
             <div className="col-lg-6 px-5">
 
@@ -168,15 +184,12 @@ const App = () => {
                   maxWidth: '550px',
                 }}
               >
-                Explore top quality electronics, smart gadgets,
-                luxury accessories and modern appliances with
-                stylish shopping experience.
+                Explore top quality electronics,
+                smart gadgets, fashion products
+                and modern accessories.
               </p>
 
-              {/* BUTTONS */}
-
               <div className="d-flex gap-3 flex-wrap">
-                
 
                 <a
                   href="#products"
@@ -197,17 +210,23 @@ const App = () => {
                   Explore More
                 </button>
 
+                <button
+                  className="btn btn-success btn-lg px-5 py-3"
+                  onClick={addProduct}
+                >
+                  POST API Demo
+                </button>
+
               </div>
 
             </div>
-
-            {/* RIGHT IMAGE */}
 
             <div className="col-lg-6 text-center mt-5 mt-lg-0">
 
               <img
                 src={heroImg}
                 alt="Hero Logo"
+                loading="lazy"
                 className="img-fluid"
                 style={{
                   width: '650px',
@@ -221,91 +240,6 @@ const App = () => {
 
           </section>
 
-          {/* FEATURES SECTION */}
-
-          <section className="py-5 bg-white">
-
-            <div className="container">
-
-              <div className="text-center mb-5">
-
-                <h2 className="fw-bold">
-                  Why Choose Pixer
-                </h2>
-
-                <p className="text-muted">
-                  Experience premium shopping with trusted services.
-                </p>
-
-              </div>
-
-              <div className="row g-4">
-
-                {/* Feature 1 */}
-
-                <div className="col-md-4">
-
-                  <div className="card border-0 shadow-sm text-center p-4 h-100">
-
-                    <h4 className="mb-3">
-                      🚀 Fast Delivery
-                    </h4>
-
-                    <p className="text-muted">
-                      Quick delivery at your doorstep
-                      with secure packaging.
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* Feature 2 */}
-
-                <div className="col-md-4">
-
-                  <div className="card border-0 shadow-sm text-center p-4 h-100">
-
-                    <h4 className="mb-3">
-                      🔒 Secure Payment
-                    </h4>
-
-                    <p className="text-muted">
-                      100% safe and secure online
-                      payment methods.
-                    </p>
-
-                  </div>
-
-                </div>
-
-                {/* Feature 3 */}
-
-                <div className="col-md-4">
-
-                  <div className="card border-0 shadow-sm text-center p-4 h-100">
-
-                    <h4 className="mb-3">
-                      💰 Best Prices
-                    </h4>
-
-                    <p className="text-muted">
-                      Affordable products with premium
-                      quality and offers.
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </section>
-
-          {/* PRODUCTS SECTION */}
-
           <section
             id="products"
             className="py-5"
@@ -317,11 +251,7 @@ const App = () => {
                 Featured Products
               </h2>
 
-              {/* SEARCH & FILTER */}
-
               <div className="row mb-4">
-
-                {/* Search Bar */}
 
                 <div className="col-md-6 mb-3">
 
@@ -337,8 +267,6 @@ const App = () => {
 
                 </div>
 
-                {/* Category Filter */}
-
                 <div className="col-md-6 mb-3">
 
                   <select
@@ -353,16 +281,20 @@ const App = () => {
                       All Categories
                     </option>
 
-                    <option value="Electronics">
+                    <option value="electronics">
                       Electronics
                     </option>
 
-                    <option value="Accessories">
-                      Accessories
+                    <option value="jewelery">
+                      Jewelery
                     </option>
 
-                    <option value="Home Appliances">
-                      Home Appliances
+                    <option value="men's clothing">
+                      Men's Clothing
+                    </option>
+
+                    <option value="women's clothing">
+                      Women's Clothing
                     </option>
 
                   </select>
@@ -371,82 +303,92 @@ const App = () => {
 
               </div>
 
-              {/* PRODUCTS */}
+              {loading ? (
 
-              <div className="row g-4">
+                <div className="text-center py-5">
 
-                {filteredProducts.map((product) => (
+                  <div className="spinner-border text-dark"></div>
 
-                  <div
-                    key={product.id}
-                    className="col-lg-4"
-                  >
+                  <p className="mt-3">
+                    Loading Products...
+                  </p>
 
-                    <div className="card border-0 shadow h-100 text-center">
+                </div>
 
-                      {/* Product Image */}
+              ) : (
 
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="card-img-top"
-                        style={{
-                          height: '180px',
-                          width: '180px',
-                          objectFit: 'contain',
-                          margin: '20px auto',
-                        }}
-                      />
+                <div className="row g-4">
 
-                      {/* Product Content */}
+                  {filteredProducts.slice(0, 3).map((product) => (
 
-                      <div className="card-body">
+                    <div
+                      key={product.id}
+                      className="col-lg-4"
+                    >
 
-                        <h4 className="fw-bold">
-                          {product.title}
-                        </h4>
+                      <div className="card border-0 shadow h-100 text-center">
 
-                        <p className="text-muted">
-                          {product.description}
-                        </p>
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          loading="lazy"
+                          className="card-img-top p-3"
+                          style={{
+                            height: '220px',
+                            objectFit: 'contain',
+                          }}
+                        />
 
-                        <span className="badge bg-primary">
-                          {product.category}
-                        </span>
+                        <div className="card-body">
+
+                          <h5 className="fw-bold">
+                            {product.title}
+                          </h5>
+
+                          <p className="text-muted small">
+                            {product.description.substring(0, 80)}...
+                          </p>
+
+                          <h5 className="text-success mb-3">
+                            ₹ {Math.round(product.price * 85)}
+                          </h5>
+
+                        </div>
+
+                        <div className="card-footer bg-white border-0">
+
+                          <div className="d-flex gap-2">
+
+                            <button
+                              className="btn btn-primary w-50"
+                              onClick={() => {
+                                addToCart(product);
+                                toast.success("Added To Cart");
+                              }}
+                            >
+                              Add To Cart
+                            </button>
+
+                            <Link
+                              to={"/product-details/" + product.id}
+                              className="btn btn-dark w-50"
+                            >
+                              Details
+                            </Link>
+
+                          </div>
+
+                        </div>
 
                       </div>
 
-                      
+                    </div>
 
-                      {/* Button */}
+                  ))}
 
-                      <div className="card-footer bg-white border-0">
+                </div>
 
-  <div className="d-flex gap-2">
-
-    <button
-      className="btn btn-primary w-50"
-      onClick={() => addToCart(product)}
-    >
-      Add To Cart
-    </button>
-
-    <Link
-      to={`/product-details/${product.id}`}
-      className="btn btn-dark w-50"
-    >
-      Details
-    </Link>
-
-  </div>
-
-</div>
- </div>
-                  </div>
-
-                ))}
-
-              </div>
+              )}
 
             </div>
 
@@ -456,12 +398,17 @@ const App = () => {
 
       </main>
 
-      {/* Footer */}
       <Footer />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+      />
 
     </div>
 
   );
+
 };
 
 export default App;
